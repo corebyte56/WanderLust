@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const Destination = () => {
@@ -44,9 +46,11 @@ const Destination = () => {
             key={index}
             className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition duration-300"
           >
-            <img
+            <Image
               src={item.image}
               alt={item.name}
+              width={500}
+              height={1000}
               className="h-48 w-full object-cover"
             />
 
@@ -74,9 +78,11 @@ const Destination = () => {
                 🚀 Departure: {item.departureDate}
               </div>
 
-              <button className="mt-4 w-full bg-cyan-600 text-white py-2 rounded-xl hover:bg-cyan-700 transition">
+              <Link href={`/Destinations/${item._id}`} className="block">
+              <button className="mt-4 w-full bg-cyan-600 text-white py-2 rounded-xl hover:bg-cyan-700 transition cursor-pointer">
                 View Details
               </button>
+              </Link>
             </div>
           </div>
         ))}
