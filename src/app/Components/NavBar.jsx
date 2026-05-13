@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Button, Drawer } from "@heroui/react";
 
 const Navbar = () => {
+  const pathname = usePathname();
+
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/Destinations", label: "Destinations" },
@@ -14,6 +16,39 @@ const Navbar = () => {
 
   return (
     <>
+      <style>{`
+        .nav-link {
+          position: relative;
+          text-decoration: none;
+          color: #374151;
+          font-weight: 500;
+          transition: color 0.2s;
+          padding-bottom: 4px;
+        }
+        .nav-link::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0%;
+          height: 2px;
+          background-color: #06b6d4;
+          transition: width 0.3s ease;
+        }
+        .nav-link:hover {
+          color: #06b6d4;
+        }
+        .nav-link:hover::after {
+          width: 100%;
+        }
+        .nav-link.active {
+          color: #06b6d4;
+        }
+        .nav-link.active::after {
+          width: 100%;
+        }
+      `}</style>
+
       <nav className="bg-white border-b border-gray-100 relative z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
@@ -46,7 +81,11 @@ const Navbar = () => {
                             <Link
                               key={link.href}
                               href={link.href}
-                              className="py-3 text-gray-700 hover:text-cyan-500 transition border-b border-gray-100 no-underline"
+                              className={`py-3 border-b border-gray-100 no-underline transition-colors ${
+                                pathname === link.href
+                                  ? "text-cyan-500 font-semibold"
+                                  : "text-gray-700 hover:text-cyan-500"
+                              }`}
                             >
                               {link.label}
                             </Link>
@@ -83,7 +122,7 @@ const Navbar = () => {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-gray-700 hover:text-cyan-500 transition font-medium no-underline"
+                  className={`nav-link ${pathname === link.href ? "active" : ""}`}
                 >
                   {link.label}
                 </Link>
