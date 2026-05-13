@@ -7,9 +7,9 @@ import { Button, Drawer } from "@heroui/react";
 const Navbar = () => {
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/destinations", label: "Destinations" },
-    { href: "/my-bookings", label: "My Bookings" },
-    { href: "/admin", label: "Admin" },
+    { href: "/Destinations", label: "Destinations" },
+    { href: "/MyBookings", label: "My Bookings" },
+    { href: "/Admin", label: "Admin" },
   ];
 
   return (
