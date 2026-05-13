@@ -9,6 +9,28 @@ const Admin = () => {
     const data = Object.fromEntries(formData.entries())
     // Handle form submission, e.g., send data to the server
     console.log('Form Data:', data)
+
+    fetch('http://localhost:8000/destinations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
+        }        return response.json()
+      })
+      .then((result) => {
+        console.log('Success:', result)
+        // Optionally, reset the form or show a success message
+        e.target.reset()
+      })
+      .catch((error) => {
+        console.error('Error:', error)
+        // Optionally, show an error message to the user
+      })
   }
   return (
     <div className="container mx-auto p-4 bg-gray-100">
