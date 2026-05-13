@@ -1,11 +1,21 @@
+'use client'
 import { Button, FieldError, Input, Label, ListBox, TextArea, TextField, Select } from '@heroui/react'
 import React from 'react'
 
 const Admin = () => {
+  const onSubmit = (e) => {
+    e.preventDefault()
+    const formData = new FormData(e.target)
+    const data = Object.fromEntries(formData.entries())
+    // Handle form submission, e.g., send data to the server
+    console.log('Form Data:', data)
+  }
   return (
     <div className="container mx-auto p-4 bg-gray-100">
+      <h1 className="text-3xl font-bold text-center mb-8">Admin Panel</h1>
       <form
             className="p-10 space-y-8"
+            onSubmit={onSubmit}
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Destination Name */}
@@ -130,8 +140,9 @@ const Admin = () => {
               type="submit"
               variant="outline"
               // isLoading={isPending}
-              className=" rounded-none w-full bg-cyan-500 text-white"
+              className=" rounded-3xl w-full bg-cyan-500 text-white"
             >
+              Add Travel Package
               {/* {isPending ? "Adding Package..." : "Add Travel Package"} */}
             </Button>
           </form>
