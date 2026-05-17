@@ -49,7 +49,7 @@ const Navbar = () => {
         }
       `}</style>
 
-      <nav className="bg-white border-b border-gray-100 relative z-50">
+      <nav className="bg-white border-b border-gray-100 relative sticky top-0 backdrop-blur-2xl z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
           {/* Left */}
