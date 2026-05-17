@@ -126,8 +126,8 @@ export default function TravelSections() {
 
               <div className="flex-1">
                 <p className="text-[20px] leading-9 font-light text-black">
-                  "The Bali Trip Was Absolutely Magical! Every Detail Was
-                  Perfectly Planned."
+                  The Bali Trip Was Absolutely Magical! Every Detail Was
+                  Perfectly Planned.
                 </p>
 
                 <div className="mt-10">
@@ -155,8 +155,8 @@ export default function TravelSections() {
 
               <div className="flex-1">
                 <p className="text-[20px] leading-9 font-light text-black">
-                  "Swiss Alps Adventure Exceeded All Expectations. The
-                  Mountain Views Were Breathtaking!"
+                  Swiss Alps Adventure Exceeded All Expectations. The
+                  Mountain Views Were Breathtaking!
                 </p>
 
                 <div className="mt-10">

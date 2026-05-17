@@ -10,84 +10,137 @@ const Destination = () => {
 
   useEffect(() => {
     fetch("https://wander-lust-server-pearl.vercel.app/destinations")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
         setDestinations(data);
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Error fetching destinations:", err);
+        console.error(err);
         setLoading(false);
       });
   }, []);
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen text-lg font-semibold">
-        Loading destinations...
+      <div className="h-screen flex items-center justify-center text-xl font-light">
+        Loading...
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-6">
-      <h1 className="text-3xl font-bold text-center mb-10">
-        🌍 Travel Destinations
-      </h1>
+    <section className="bg-[#f8f8f8] min-h-screen py-20 px-6">
+      <div className="max-w-7xl mx-auto">
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {destinations.map((item, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition duration-300"
-          >
-            <Image
-              src={item.image}
-              alt={item.name}
-              width={500}
-              height={1000}
-              className="h-48 w-full object-cover"
-            />
+        {/* ================= TOP ================= */}
+        <div className="mb-10">
 
-            <div className="p-5">
-              <h2 className="text-xl font-bold text-gray-800">
-                {item.name}
-              </h2>
+          <h1 className="text-5xl font-light text-black">
+            Explore All Destinations
+          </h1>
 
-              <p className="text-sm text-gray-500 mb-2">
-                📍 {item.country}
-              </p>
+          <p className="text-gray-500 mt-3 text-sm">
+            Find your perfect travel experience from our curated collection
+          </p>
 
-              <p className="text-gray-600 text-sm mb-3">
-                {item.description}
-              </p>
+          {/* FILTERS */}
+          <div className="grid grid-cols-1 md:grid-cols-3 mt-10 border border-gray-300">
 
-              <div className="flex justify-between text-sm text-gray-700 mb-3">
-                <span>⏳ {item.duration}</span>
-                <span className="font-semibold text-green-600">
-                  ${item.price}
-                </span>
-              </div>
+            <select className="border-r border-gray-300 px-5 py-4 bg-transparent outline-none text-sm text-gray-600">
+              <option>CATEGORY</option>
+              <option>Adventure</option>
+              <option>Beach</option>
+              <option>Mountain</option>
+            </select>
 
-              <div className="text-xs text-gray-500">
-                🚀 Departure: {item.departureDate}
-              </div>
+            <select className="border-r border-gray-300 px-5 py-4 bg-transparent outline-none text-sm text-gray-600">
+              <option>PRICE RANGE</option>
+              <option>$1000 - $2000</option>
+              <option>$2000 - $4000</option>
+            </select>
 
-              <Link href={`/Destinations/${item._id}`} className="block">
-              <button className="mt-4 w-full bg-cyan-600 text-white py-2 rounded-xl hover:bg-cyan-700 transition cursor-pointer">
-                View Details
-              </button>
-              </Link>
-            </div>
+            <select className="px-5 py-4 bg-transparent outline-none text-sm text-gray-600">
+              <option>SORT BY</option>
+              <option>Low Price</option>
+              <option>High Price</option>
+            </select>
+
           </div>
-        ))}
+
+          <p className="text-gray-500 text-sm mt-6">
+            Showing {destinations.length} destinations
+          </p>
+        </div>
+
+        {/* ================= CARDS ================= */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          {destinations.map((item) => (
+            <div key={item._id} className="group">
+
+              {/* IMAGE */}
+              <div className="relative overflow-hidden">
+
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  width={500}
+                  height={350}
+                  className="w-full h-[240px] object-cover group-hover:scale-105 duration-500"
+                />
+
+                {/* RATING */}
+                <div className="absolute top-4 right-4 bg-white px-3 py-1 text-xs flex items-center gap-1">
+                  4.5 ★
+                </div>
+              </div>
+
+              {/* CONTENT */}
+              <div className="pt-4">
+
+                {/* COUNTRY */}
+                <p className="text-gray-400 text-xs flex items-center gap-1">
+                  📍 {item.country}
+                </p>
+
+                {/* NAME + PRICE */}
+                <div className="flex items-center justify-between mt-2">
+
+                  <h2 className="text-[22px] font-light text-black">
+                    {item.name}
+                  </h2>
+
+                  <div>
+                    <span className="text-black text-xl font-medium">
+                      ${item.price}
+                    </span>
+
+                    <span className="text-gray-400 text-xs">
+                      /Person
+                    </span>
+                  </div>
+                </div>
+
+                {/* DURATION */}
+                <p className="text-gray-400 text-sm mt-2">
+                  🗓️ {item.duration}
+                </p>
+
+                {/* BUTTON */}
+                <Link href={`/Destinations/${item._id}`}>
+                  <button className="mt-5 text-cyan-500 uppercase tracking-wider text-sm flex items-center gap-2 hover:gap-4 duration-300 cursor-pointer">
+                    Book Now ↗
+                  </button>
+                </Link>
+
+              </div>
+            </div>
+          ))}
+
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
