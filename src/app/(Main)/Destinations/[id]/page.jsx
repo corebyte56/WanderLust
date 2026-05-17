@@ -4,7 +4,7 @@ import { FaRegCalendar, FaLocationDot } from "react-icons/fa6";
 const DestinationDetailsPage = async ({ params }) => {
   const { id } = await params;
 
- const res = await fetch(`http://localhost:8000/destinations/${id}`, {
+ const res = await fetch(`https://wander-lust-server-pearl.vercel.app/destinations/${id}`, {
   cache: "no-store",
 });
 
