@@ -9,7 +9,7 @@ const Destination = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:8000/destinations")
+    fetch("https://wander-lust-server-pearl.vercel.app/destinations")
       .then((res) => {
         if (!res.ok) {
           throw new Error("Network response was not ok");
