@@ -1,3 +1,5 @@
+
+import BookNow from "@/app/Components/BookNow";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -167,9 +169,7 @@ const DestinationDetailsPage = async ({ params }) => {
               </div>
 
               {/* BUTTON */}
-              <button className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-4 mt-5 duration-300 cursor-pointer">
-                Book Now →
-              </button>
+              <BookNow/>
 
               {/* FEATURES */}
               <div className="mt-8 space-y-4 text-sm text-gray-500">
