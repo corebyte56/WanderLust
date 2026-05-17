@@ -1,12 +1,20 @@
 import Image from "next/image";
-import { FaRegCalendar, FaLocationDot } from "react-icons/fa6";
+import Link from "next/link";
+import {
+  FaLocationDot,
+  FaRegCalendar,
+  FaStar,
+} from "react-icons/fa6";
 
 const DestinationDetailsPage = async ({ params }) => {
   const { id } = await params;
 
- const res = await fetch(`https://wander-lust-server-pearl.vercel.app/destinations/${id}`, {
-  cache: "no-store",
-});
+  const res = await fetch(
+    `https://wander-lust-server-pearl.vercel.app/destinations/${id}`,
+    {
+      cache: "no-store",
+    }
+  );
 
   const destination = await res.json();
 
@@ -18,76 +26,168 @@ const DestinationDetailsPage = async ({ params }) => {
     country,
     description,
     departureDate,
+    highlights,
   } = destination;
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-10">
-      {/* Image */}
-      <div className="overflow-hidden rounded-3xl shadow-lg">
-        <Image
-          className="w-full h-[500px] object-cover hover:scale-105 transition duration-500"
-          alt={name}
-          src={image}
-          height={500}
-          width={1200}
-        />
-      </div>
+    <section className="bg-[#f8f8f8] min-h-screen pb-20">
 
-      {/* Content */}
-      <div className="mt-8 grid md:grid-cols-3 gap-8">
-        {/* Left Side */}
-        <div className="md:col-span-2">
-          <div className="flex items-center gap-2 text-gray-500 mb-2">
-            <FaLocationDot className="text-cyan-600" />
-            <p>{country}</p>
-          </div>
+      {/* ================= TOP ================= */}
+      <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
 
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">
-            {name}
-          </h1>
+        <Link
+          href="/Destinations"
+          className="text-gray-500 text-sm hover:text-black duration-300"
+        >
+          ← Back to Destinations
+        </Link>
 
-          <div className="flex items-center gap-6 text-gray-600 mb-6">
-            <div className="flex items-center gap-2">
-              <FaRegCalendar className="text-cyan-600" />
-              <span>{duration}</span>
-            </div>
+        <div className="flex gap-3">
 
-            <div className="bg-cyan-100 text-cyan-700 px-4 py-1 rounded-full text-sm font-medium">
-              Departure: {departureDate}
-            </div>
-          </div>
-
-          <h2 className="text-2xl font-bold mb-3">
-            Overview
-          </h2>
-
-          <p className="text-gray-600 leading-8">
-            {description}
-          </p>
-        </div>
-
-        {/* Right Side Card */}
-        <div className="bg-white shadow-xl rounded-3xl p-6 h-fit border">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">
-            Tour Price
-          </h2>
-
-          <h1 className="text-5xl font-bold text-cyan-600 mb-6">
-            ${price}
-          </h1>
-
-          <button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-3 rounded-2xl font-semibold transition cursor-pointer">
-            Book Now
+          <button className="border border-gray-300 px-5 py-2 text-sm hover:bg-black hover:text-white duration-300 cursor-pointer">
+            Edit
           </button>
 
-          <div className="mt-6 border-t pt-4 text-sm text-gray-500 space-y-2">
-            <p>✔ Best Price Guarantee</p>
-            <p>✔ Free Cancellation</p>
-            <p>✔ Secure Booking</p>
-          </div>
+          <button className="border border-red-300 text-red-500 px-5 py-2 text-sm hover:bg-red-500 hover:text-white duration-300 cursor-pointer">
+            Cancel
+          </button>
+
         </div>
       </div>
-    </div>
+
+      {/* ================= IMAGE ================= */}
+      <div className="max-w-7xl mx-auto px-6">
+
+        <div className="overflow-hidden">
+
+          <Image
+            src={image}
+            alt={name}
+            width={1400}
+            height={700}
+            className="w-full h-[520px] object-cover"
+          />
+
+        </div>
+
+        {/* ================= CONTENT ================= */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-14 mt-12">
+
+          {/* LEFT SIDE */}
+          <div className="lg:col-span-2">
+
+            {/* COUNTRY */}
+            <div className="flex items-center gap-2 text-gray-400 text-sm">
+              <FaLocationDot />
+              <p>{country}</p>
+            </div>
+
+            {/* TITLE */}
+            <h1 className="text-6xl font-light text-black mt-3">
+              {name}
+            </h1>
+
+            {/* REVIEW */}
+            <div className="flex flex-wrap items-center gap-5 mt-6">
+
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <FaStar className="text-green-500" />
+                <span>4.9 (234 reviews)</span>
+              </div>
+
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <FaRegCalendar />
+                <span>{duration}</span>
+              </div>
+
+            </div>
+
+            {/* OVERVIEW */}
+            <div className="mt-14">
+
+              <h2 className="text-4xl font-light mb-5">
+                Overview
+              </h2>
+
+              <p className="text-gray-500 leading-9 text-[17px]">
+                {description}
+              </p>
+
+            </div>
+
+            {/* HIGHLIGHTS */}
+            <div className="mt-14">
+
+              <h2 className="text-4xl font-light mb-5">
+                Highlights
+              </h2>
+
+              <p className="text-gray-500 leading-9 text-[17px] mb-8">
+                Discover the beauty of {country} with unforgettable
+                experiences, scenic landscapes, and premium comfort.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-y-5 gap-x-10">
+
+                {highlights?.map((highlight, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center gap-3 text-gray-600"
+                  >
+                    <span className="text-green-500">✔</span>
+                    {highlight}
+                  </div>
+                ))}
+
+              </div>
+
+            </div>
+          </div>
+
+          {/* RIGHT CARD */}
+          <div>
+
+            <div className="bg-white border border-gray-200 p-8 shadow-sm sticky top-10">
+
+              <p className="text-gray-400 text-sm">
+                Starting from
+              </p>
+
+              <h1 className="text-5xl text-cyan-500 font-semibold mt-2">
+                ${price}
+              </h1>
+
+              <p className="text-gray-400 text-sm mt-1">
+                per person
+              </p>
+
+              {/* DATE */}
+              <div className="mt-8 border border-gray-200 px-5 py-4 text-gray-500 text-sm">
+                {departureDate}
+              </div>
+
+              {/* BUTTON */}
+              <button className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-4 mt-5 duration-300 cursor-pointer">
+                Book Now →
+              </button>
+
+              {/* FEATURES */}
+              <div className="mt-8 space-y-4 text-sm text-gray-500">
+
+                <p>✔ Free cancellation up to 7 days</p>
+
+                <p>✔ Travel insurance included</p>
+
+                <p>✔ 24/7 customer support</p>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
   );
 };
 
