@@ -169,7 +169,7 @@ const DestinationDetailsPage = async ({ params }) => {
               </div>
 
               {/* BUTTON */}
-              <BookNow/>
+              <BookNow destination={destination} />
 
               {/* FEATURES */}
               <div className="mt-8 space-y-4 text-sm text-gray-500">

@@ -10,7 +10,7 @@ const Navbar = () => {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/Destinations", label: "Destinations" },
-    { href: "/MyBookings", label: "My Bookings" },
+    { href: "/bookings", label: "My Bookings" },
     { href: "/Admin", label: "Admin" },
   ];
 
